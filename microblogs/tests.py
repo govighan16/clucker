@@ -70,6 +70,10 @@ class UserModelTest(TestCase):
         self.user.first_name = 'x' * 51
         self._assert_user_is_invalid()
 
+    def test_firstname_may_contain_50_characters(self):
+        self.user.first_name = 'x' * 50
+        self._assert_user_is_valid()
+
     def test_lastname_must_not_be_blank(self):
         self.user.last_name = ''
         self._assert_user_is_invalid()
@@ -83,9 +87,17 @@ class UserModelTest(TestCase):
         self.user.last_name = 'x' * 51
         self._assert_user_is_invalid()
 
+    def test_lastname_may_contain_50_characters(self):
+        self.user.last_name = 'x' * 50
+        self._assert_user_is_valid()
+
     def test_email_must_be_unique(self):
         self.user.email = 'janedoe@example.org'
         second_user = self._create_second_user()
+        self._assert_user_is_invalid()
+
+    def test_email_must_not_be_blank(self):
+        self.user.email = ''
         self._assert_user_is_invalid()
 
     def test_email_is_appropriate(self):
@@ -98,6 +110,14 @@ class UserModelTest(TestCase):
 
     def test_email_must_contain_domain_name(self):
         self.user.email = 'johndoe@.org'
+        self._assert_user_is_invalid()
+
+    def test_email_must_contain_domain_(self):
+        self.user.email = 'johndoe@example'
+        self._assert_user_is_invalid()
+
+    def test_email_must_contain_at_symbol(self):
+        self.user.email = 'johndoe.org'
         self._assert_user_is_invalid()
 
     def test_bio_may_be_blank(self):
