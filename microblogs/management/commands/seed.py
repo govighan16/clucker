@@ -5,8 +5,14 @@ class Command(BaseCommand):
 
     def __init__(self):
         super().__init__()
-        self.Faker = Faker('en_GB')
+        self.faker = Faker('en_GB')
+
+
+    def generateText(self):
+        self.faker.text()
+
 
 
     def handle(self, *args, **options):
         print("WARNING: The seed command has not yet been implemented yet.")
+        self.generateText()
