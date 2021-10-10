@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from faker import Faker
 
+
 class Command(BaseCommand):
 
     def __init__(self):
@@ -8,11 +9,10 @@ class Command(BaseCommand):
         self.faker = Faker('en_GB')
 
 
-    def generateText(self):
-        self.faker.text()
+
 
 
 
     def handle(self, *args, **options):
         print("WARNING: The seed command has not yet been implemented yet.")
-        self.generateText()
+        print(self.faker.simple_profile())
