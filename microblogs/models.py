@@ -26,7 +26,7 @@ class User(AbstractUser):
 
 class Post(models.Model):
     author = models.ForeignKey('User', on_delete = models.CASCADE)
-    text = models.TextField(max_length = 280)
+    text = models.CharField(max_length = 280)
     created_at = models.DateTimeField(default = timezone.now)
 
     class Meta:
