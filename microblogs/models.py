@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
+
 
 class User(AbstractUser):
     username = models.CharField(
@@ -20,3 +22,12 @@ class User(AbstractUser):
     email = models.EmailField(unique = True, blank = False)
 
     bio = models.CharField(max_length = 520, unique = False, blank = True)
+
+
+class Post(models.Model):
+    author = models.ForeignKey('User', on_delete = models.CASCADE)
+    text = models.TextField(max_length = 280)
+    created_at = models.DateTimeField(default = timezone.now)
+
+    class Meta:
+        ordering = ['-created_at']

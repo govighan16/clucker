@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from .forms import SignUpForm
+from django.contrib.auth import get_user_model #
+
+User = get_user_model()
 
 
 def home(request):
