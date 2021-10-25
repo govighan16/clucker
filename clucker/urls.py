@@ -23,6 +23,7 @@ urlpatterns = [
     path('feed/', views.feed, name='feed'),
     path('log_in/', views.log_in, name='log_in'),
     path('sign_up/', views.sign_up, name='sign_up'),
+    path('post/', views.post, name='post'),
 
 
 ]

@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
-from .forms import LogInForm, SignUpForm
+from .forms import LogInForm, SignUpForm, PostForm
 from django.contrib.auth import get_user_model #
 
 
@@ -38,3 +38,7 @@ def sign_up(request):
     else:
         form = SignUpForm()
     return render(request, 'sign_up.html', {'form': form})
+
+def post(request):
+    form = PostForm()
+    return render(request, 'post.html', {'form': form})

@@ -3,6 +3,7 @@ from .models import User
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User #
 from django.contrib.auth import get_user_model #
+from .models import Post
 
 User = get_user_model() #
 
@@ -45,3 +46,13 @@ class SignUpForm(forms.ModelForm):
             password = self.cleaned_data.get('new_password'),
             )
         return user
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['text']
+        widgets = {'text': forms.Textarea()}
+
+    #def save(self):
+        #super().save(commit=False)
+        #post = Post(author = u1, text = "This is sample text")
