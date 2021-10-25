@@ -4,9 +4,10 @@ from django.test import TestCase
 from microblogs.forms import LogInForm
 from django.urls import reverse
 from microblogs.models import User
+from .helpers import LogInTester
 
 
-class LogInViewTestCase(TestCase):
+class LogInViewTestCase(TestCase, LogInTester):
     """Tests of the log in view"""
 
     def setUp(self):
