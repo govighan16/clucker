@@ -46,3 +46,6 @@ def post(request):
 def user_list(request):
     usernameList = User.objects.all()
     return render(request, 'user_list.html', {'userlist': usernameList})
+
+def show_user(request):
+    pass
