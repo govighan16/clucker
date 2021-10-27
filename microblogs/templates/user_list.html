@@ -1,0 +1,11 @@
+<html>
+<head>
+  <title>Clucker User List</title>
+</head>
+  <body>
+    <h1>User List</h1>
+      <p><a {% for user in userlist %} </a></p>
+        <option title = "{{user.username}}"> {{user.username}} </option>
+        {% endfor %}
+  </body>
+</html>

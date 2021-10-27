@@ -42,3 +42,7 @@ def sign_up(request):
 def post(request):
     form = PostForm()
     return render(request, 'post.html', {'form': form})
+
+def user_list(request):
+    usernameList = User.objects.all()
+    return render(request, 'user_list.html', {'userlist': usernameList})
