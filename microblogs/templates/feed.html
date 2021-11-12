@@ -1,11 +1,13 @@
-<html>
-<head>
-  <title>Clucker</title>
-</head>
-  <body>
+{% extends 'base.html' %}
+{% block body %}
+<div class = "container">
+  <div class = "row">
+    <div class = "col-sm-12 col-md-6 offset-md-3">
     <h1>Feed</h1>
     <p><b>UNDER CONSTRUCTION</b>: This page will contain a user-specific feed of clucks.</p>
       <p><a href='{% url 'post' %}'>Post</a></p>
       <p><a href='{% url 'user_list' %}'>User List</a></p>
-  </body>
-</html>
+    </div>
+  </div>
+  </div>
+  {% endblock %}
