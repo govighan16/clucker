@@ -23,11 +23,14 @@ class User(AbstractUser):
 
     bio = models.CharField(max_length = 520, unique = False, blank = True)
 
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
 
 class Post(models.Model):
     author = models.ForeignKey('User', on_delete = models.CASCADE)
     text = models.CharField(max_length = 280)
-    created_at = models.DateTimeField(default = timezone.now)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-created_at']

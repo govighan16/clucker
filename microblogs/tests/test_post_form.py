@@ -6,33 +6,48 @@ from microblogs.forms import PostForm
 from microblogs.models import User
 
 
-class SignUpFormTestCase(TestCase):
+class PostFormTestCase(TestCase):
     """Unit tests of the post form."""
 
     def setUp(self):
-        self.form_input = {'text' : 'This is a post text'}
+        super(TestCase, self).setUp()
+        self.user = User.objects.create_user(
+            '@johndoe',
+            first_name='John',
+            last_name='Doe',
+            email='johndoe@example.org',
+            password='Password123',
+            bio='The quick brown fox jumps over the lazy dog.'
+        )
+        #self.form_input = {'text' : 'This is a post text'}
 
 
 
     def test_valid_post_form(self):
-        form = PostForm(data= self.form_input)
+        input = {'text': 'x'*200 }
+        form = PostForm(data=input)
         self.assertTrue(form.is_valid())
 
+    def test_invalid_post_form(self):
+        input = {'text': 'x'*600 }
+        form = PostForm(data=input)
+        self.assertFalse(form.is_valid())
 
-    def test_form_has_necessary_fields(self):
-        form = PostForm(data = self.form_input)
-        self.assertIn('text', form.fields)
+
+    #def test_form_has_necessary_fields(self):
+        #form = PostForm(data = self.form_input)
+        #self.assertIn('text', form.fields)
         #self.assertTrue(isinstance(email_field, forms.EmailField))
 
-    def test_form_text_has_max_280_characters(self):
-        form = PostForm(data = self.form_input)
-        self.form_input['text'] = 'x' * 280
-        self.assertTrue(form.is_valid())
+    #def test_form_text_has_max_280_characters(self):
+        #form = PostForm(data = self.form_input)
+        #self.form_input['text'] = 'x' * 280
+        #self.assertTrue(form.is_valid())
 
-    def test_form_text_must_not_contain_more_than_280_characters(self):
-        form = PostForm(data = self.form_input)
-        self.form_input['text'] = 'x' * 281
-        self.assertFalse(form.is_valid())
+    #def test_form_text_must_not_contain_more_than_280_characters(self):
+        #form = PostForm(data = self.form_input)
+        #self.form_input['text'] = 'x' * 281
+        #self.assertFalse(form.is_valid())
 
 
 

@@ -23,10 +23,13 @@ urlpatterns = [
     path('feed/', views.feed, name='feed'),
     path('log_in/', views.log_in, name='log_in'),
     path('sign_up/', views.sign_up, name='sign_up'),
-    path('post/', views.post, name='post'),
-    path('APP_URL/users/', views.user_list, name='user_list'),
+    #path('post/', views.post, name='post'),
+    path('new_post/', views.new_post, name='new_post'),
+    #path('APP_URL/users/', views.user_list, name='user_list'),
     path('log_out/', views.log_out, name='log_out'),
-    path('APP_url/user/id/', views.show_user, name='show_user'),
+    #path('APP_url/user/id/', views.show_user, name='show_user'),
+    path('users/', views.user_list, name='user_list'),
+    path('user/<int:user_id>', views.show_user, name='show_user'),
 
 
 ]

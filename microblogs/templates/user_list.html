@@ -1,11 +1,18 @@
-<html>
-<head>
-  <title>Clucker User List</title>
-</head>
-  <body>
-    <h1>User List</h1>
-      <p><a {% for user in userlist %} </a></p>
-        <option title = "{{user.username}}"> {{user.username}} </option>
+{% extends 'base_content.html' %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Users</h1>
+      <table class="table">
+        {% for user in users %}
+          <tr>
+            <td>{{ user.full_name }}</td>
+            <td><a href="{% url 'show_user' user.id %}">{{ user.username }}</a></td>
+          </tr>
         {% endfor %}
-  </body>
-</html>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
