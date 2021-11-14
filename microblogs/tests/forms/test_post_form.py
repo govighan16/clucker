@@ -9,16 +9,19 @@ from microblogs.models import User
 class PostFormTestCase(TestCase):
     """Unit tests of the post form."""
 
+    fixtures = ['microblogs/tests/fixtures/default_user.json']
+
     def setUp(self):
         super(TestCase, self).setUp()
-        self.user = User.objects.create_user(
-            '@johndoe',
-            first_name='John',
-            last_name='Doe',
-            email='johndoe@example.org',
-            password='Password123',
-            bio='The quick brown fox jumps over the lazy dog.'
-        )
+        # self.user = User.objects.create_user(
+        #     '@johndoe',
+        #     first_name='John',
+        #     last_name='Doe',
+        #     email='johndoe@example.org',
+        #     password='Password123',
+        #     bio='The quick brown fox jumps over the lazy dog.'
+        # )
+        self.user = User.objects.get(username='@johndoe')
         #self.form_input = {'text' : 'This is a post text'}
 
 

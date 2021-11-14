@@ -7,17 +7,12 @@ from django.core.exceptions import ValidationError
 class PostTestCase(TestCase):
     """Unit tests of the post model."""
 
+    fixtures = ['microblogs/tests/fixtures/default_user.json']
+
     def setUp(self):
        super(TestCase, self).setUp()
-       u1 = User.objects.create_user(
-       username ='@johndoe',
-       first_name = 'john',
-       last_name = 'doe',
-       email = 'johndoe@example.org',
-       password= 'Password123',
-       bio = 'Random stuff')
-       self.user = u1
-       self.post = Post(author = u1, text = "This is sample text")
+       self.user = User.objects.get(username='@johndoe')
+       self.post = Post(author = self.user, text = "This is sample text")
 
     def test_valid_message(self):
         try:
