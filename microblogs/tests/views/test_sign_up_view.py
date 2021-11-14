@@ -4,7 +4,7 @@ from django.test import TestCase
 from microblogs.forms import SignUpForm
 from django.urls import reverse
 from microblogs.models import User
-from .helpers import LogInTester
+from microblogs.tests.helpers import LogInTester
 
 class SignUpViewTestCase(TestCase, LogInTester):
     """Tests of the sign up view"""
