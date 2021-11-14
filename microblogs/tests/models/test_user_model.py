@@ -7,15 +7,13 @@ from microblogs.models import User
 class UserModelTest(TestCase):
     """Unit tests for the user model."""
 
+    fixtures = [
+         'microblogs/tests/fixtures/default_user.json',
+         'microblogs/tests/fixtures/other_users.json'
+    ]
+
     def setUp(self):
-        self.user = User.objects.create_user(
-            '@johndoe',
-            first_name = 'John',
-            last_name = 'Doe',
-            email = 'johndoe@example.org',
-            password = 'Password123',
-            bio = 'The quick brown fox jumps over the lazy dog'
-        )
+        self.user = User.objects.get(username='@johndoe')
 
 
     def test_valid_user(self):
@@ -35,7 +33,7 @@ class UserModelTest(TestCase):
         self._assert_user_is_invalid()
 
     def test_username_must_be_unique(self):
-        second_user = self._create_second_user()
+        second_user = User.objects.get(username='@janedoe')
         self.user.username = second_user.username
         self._assert_user_is_invalid()
 
@@ -64,7 +62,7 @@ class UserModelTest(TestCase):
         self._assert_user_is_invalid()
 
     def test_firstname_may_already_exist(self):
-        second_user = self._create_second_user()
+        second_user = User.objects.get(username='@janedoe')
         self.user.first_name = second_user.first_name
         self._assert_user_is_valid()
 
@@ -81,7 +79,7 @@ class UserModelTest(TestCase):
         self._assert_user_is_invalid()
 
     def test_lastname_may_already_exist(self):
-        second_user = self._create_second_user()
+        second_user = User.objects.get(username='@janedoe')
         self.user.last_name = second_user.last_name
         self._assert_user_is_valid()
 
@@ -95,7 +93,7 @@ class UserModelTest(TestCase):
 
     def test_email_must_be_unique(self):
         self.user.email = 'janedoe@example.org'
-        second_user = self._create_second_user()
+        second_user = User.objects.get(username='@janedoe')
         self._assert_user_is_invalid()
 
     def test_email_must_not_be_blank(self):
@@ -127,7 +125,7 @@ class UserModelTest(TestCase):
         self._assert_user_is_valid()
 
     def test_bio_may_exist(self):
-        second_user = self._create_second_user()
+        second_user = User.objects.get(username='@janedoe')
         self.user.bio = second_user.bio
         self._assert_user_is_valid()
 
@@ -151,13 +149,4 @@ class UserModelTest(TestCase):
         with self.assertRaises(ValidationError):
             self.user.full_clean()
 
-    def _create_second_user(self):
-        user = User.objects.create_user(
-            '@janedoe',
-            first_name = 'Jane',
-            last_name = 'Doe',
-            email = 'janedoe@example.org',
-            password = 'Password123',
-            bio = "This is Jane's profile"
-        )
-        return user
+    
