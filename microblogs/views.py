@@ -11,6 +11,8 @@ from django.http import HttpResponseForbidden
 
 User = get_user_model()
 
+
+@login_required
 def feed(request):
     form = PostForm()
     return render(request, 'feed.html', {'form': form})
