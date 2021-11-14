@@ -7,18 +7,10 @@ from django.contrib.auth import get_user_model #
 from .models import Post, User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseForbidden
+from .helpers import login_prohibited
 
 
 User = get_user_model()
-
-
-def login_prohibited(view_function):
-    def modified_view_function(request):
-        if request.user.is_authenticated:
-            return redirect('feed')
-        else:
-            return view_function(request)
-    return modified_view_function
 
 
 @login_required
