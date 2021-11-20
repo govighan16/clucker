@@ -29,6 +29,7 @@ urlpatterns = [
     path('log_out/', views.log_out, name='log_out'),
     #path('APP_url/user/id/', views.show_user, name='show_user'),
     path('users/', views.user_list, name='user_list'),
+    path('follow_toggle/<int:user_id>', views.follow_toggle, name='follow_toggle'),
     path('user/<int:user_id>', views.show_user, name='show_user'),
 
 
