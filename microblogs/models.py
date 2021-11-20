@@ -43,6 +43,9 @@ class User(AbstractUser):
     def toggle_follow(self, followee):
         """Toggles whether self follows the given followee."""
 
+        if followee==self:
+            return
+            
         if self.is_following(followee):
             self._unfollow(followee)
         else:
