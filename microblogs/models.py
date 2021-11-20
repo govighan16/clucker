@@ -23,6 +23,9 @@ class User(AbstractUser):
     email = models.EmailField(unique = True, blank = False)
 
     bio = models.CharField(max_length = 520, unique = False, blank = True)
+    followers = models.ManyToManyField(
+        'self', symmetrical=False, related_name='followees'
+    )
 
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
@@ -40,22 +43,31 @@ class User(AbstractUser):
     def toggle_follow(self, followee):
         """Toggles whether self follows the given followee."""
 
-        pass
+        if self.is_following(followee):
+            self._unfollow(followee)
+        else:
+            self._follow(followee)
+
+    def _follow(self, user):
+        user.followers.add(self)
+
+    def _unfollow(self, user):
+        user.followers.remove(self)
 
     def is_following(self, user):
         """Returns whether self follows the given user."""
 
-        return False
+        return user in self.followees.all()
 
     def follower_count(self):
         """Returns the number of followers of self."""
 
-        return 0
+        return self.followers.count()
 
     def followee_count(self):
         """Returns the number of followees of self."""
 
-        return 0
+        return self.followees.count()
 
 
 class Post(models.Model):
