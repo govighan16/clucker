@@ -16,7 +16,9 @@ User = get_user_model()
 @login_required
 def feed(request):
     form = PostForm()
-    return render(request, 'feed.html', {'form': form})
+    current_user = request.user
+    posts = Post.objects.filter(author=current_user)
+    return render(request, 'feed.html', {'form': form, 'posts': posts})
 
 @login_prohibited
 def log_in(request):
@@ -89,7 +91,8 @@ def user_list(request):
 def show_user(request, user_id):
     try:
         user = User.objects.get(id=user_id)
+        posts = Post.objects.filter(author=user)
     except ObjectDoesNotExist:
         return redirect('user_list')
     else:
-        return render(request, 'show_user.html', {'user': user})
+        return render(request, 'show_user.html', {'user': user, 'posts': posts})

@@ -29,7 +29,7 @@ class Command(BaseCommand):
         #print('@' + self.faker.user_name())
         for i in range(100):
         #user = User.objects.create_user(self.fake.first_name(), self.fake.last_name(), self.fake.email(),self.faker.password(), self.fake.text())
-            user = User.objects.create_user(username = '@' + self.faker.user_name(), first_name = self.faker.first_name(), last_name = self.faker.last_name(), email = self.faker.email(), password = self.faker.password(), bio = self.faker.text())
+            user = User.objects.create_user(username = '@' + self.faker.user_name(), first_name = self.faker.first_name(), last_name = self.faker.last_name(), email = self.faker.email(), password = "Password123", bio = self.faker.text())
             user.save()
 
 
